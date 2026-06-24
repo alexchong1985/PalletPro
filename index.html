@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PalletPro | Free Pallet Loading Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>PalletPro</h1>
+            <p>Optimize your shipping, for free.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="hero" style="margin-bottom: 2rem;">
+            <p style="font-size: 1.25rem; color: var(--text-muted);">Enter your box and pallet dimensions to find the most efficient loading pattern instantly.</p>
+        </section>
+
+        <section id="inputs">
+            <div class="card">
+                <h2>Dimensions</h2>
+                <div class="form-group">
+                    <h3>Pallet (inches)</h3>
+                    <div class="input-row">
+                        <label>Length: <input type="number" id="p-length" value="48"></label>
+                        <label>Width: <input type="number" id="p-width" value="40"></label>
+                        <label>Max Height: <input type="number" id="p-height" value="48"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3>Box (inches)</h3>
+                    <div class="input-row">
+                        <label>Length: <input type="number" id="b-length" value="12"></label>
+                        <label>Width: <input type="number" id="b-width" value="10"></label>
+                        <label>Height: <input type="number" id="b-height" value="8"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3>Constraints</h3>
+                    <div class="input-row">
+                        <label>Max Weight (lbs): <input type="number" id="p-max-weight" value="2500"></label>
+                        <label>Box Weight (lbs): <input type="number" id="b-weight" value="5"></label>
+                    </div>
+                </div>
+                <button id="calculate-btn">Calculate Packing</button>
+            </div>
+        </section>
+
+        <section id="results" class="hidden">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="label">Total Boxes</span>
+                    <span id="stat-total" class="value">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Layers x Boxes/Layer</span>
+                    <span id="stat-layout" class="value">0 x 0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Volume Utilization</span>
+                    <span id="stat-utilization" class="value">0%</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Weight Utilization</span>
+                    <span id="stat-weight-util" class="value">0%</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Estimated Weight</span>
+                    <span id="stat-weight" class="value">0 lbs</span>
+                </div>
+            </div>
+
+            <div id="visualization-container">
+                <div id="viz-controls">
+                    <button id="prev-layer">Previous Layer</button>
+                    <span id="layer-status">All Layers</span>
+                    <button id="next-layer">Next Layer</button>
+                    <button id="reset-view">Reset View</button>
+                </div>
+                <canvas id="pallet-canvas"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h3>Need more than just a calculator?</h3>
+            <p>Our core logistics services help thousands of businesses scale their shipping operations efficiently.</p>
+            <a href="https://example.com/services" class="cta" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 2rem; background: var(--primary); color: white; border-radius: 4px; text-decoration: none;">Explore Our Core Services</a>
+            <p style="margin-top: 2rem; font-size: 0.875rem;">&copy; <span id="year"></span> PalletPro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="algorithm.js"></script>
+    <script src="visualization.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
