@@ -27,6 +27,7 @@ function calculatePacking(pallet, box) {
 function calculateForOrientation(pallet, boxOri) {
     const patterns = [
         optimalLayerPack(pallet.l, pallet.w, pallet.h, boxOri.l, boxOri.w, boxOri.h),
+        mixedPack(pallet.l, pallet.w, pallet.h, boxOri.l, boxOri.w, boxOri.h),
         pinwheelPack(pallet.l, pallet.w, pallet.h, boxOri.l, boxOri.w, boxOri.h),
         pinwheelPack(pallet.l, pallet.w, pallet.h, boxOri.w, boxOri.l, boxOri.h)
     ];
@@ -65,6 +66,53 @@ function calculateForOrientation(pallet, boxOri) {
         pallet: pallet,
         utilization: (finalLayers.length * bestPattern.countPerLayer * (boxOri.l * boxOri.w * boxOri.h)) / (pallet.l * pallet.w * pallet.h)
     };
+}
+
+function mixedPack(PL, PW, PH, bl, bw, bh) {
+    let bestBoxes = [];
+    const nz = Math.floor(PH / bh);
+    
+    // Try horizontal splits (row-based mixing)
+    for (let n1 = 0; n1 * bw <= PW; n1++) {
+        const remainingWidth = PW - (n1 * bw);
+        const n2 = Math.floor(remainingWidth / bl);
+        const boxes = [];
+        const nx1 = Math.floor(PL / bl);
+        for (let i = 0; i < nx1; i++) {
+            for (let j = 0; j < n1; j++) {
+                boxes.push({ x: i * bl, y: j * bw, l: bl, w: bw });
+            }
+        }
+        const nx2 = Math.floor(PL / bw);
+        for (let i = 0; i < nx2; i++) {
+            for (let j = 0; j < n2; j++) {
+                boxes.push({ x: i * bw, y: (n1 * bw) + (j * bl), l: bw, w: bl });
+            }
+        }
+        if (boxes.length > bestBoxes.length) bestBoxes = boxes;
+    }
+    
+    // Try vertical splits (column-based mixing)
+    for (let n1 = 0; n1 * bl <= PL; n1++) {
+        const remainingLength = PL - (n1 * bl);
+        const n2 = Math.floor(remainingLength / bw);
+        const boxes = [];
+        const ny1 = Math.floor(PW / bw);
+        for (let i = 0; i < n1; i++) {
+            for (let j = 0; j < ny1; j++) {
+                boxes.push({ x: i * bl, y: j * bw, l: bl, w: bw });
+            }
+        }
+        const ny2 = Math.floor(PW / bl);
+        for (let i = 0; i < n2; i++) {
+            for (let j = 0; j < ny2; j++) {
+                boxes.push({ x: (n1 * bl) + i * bw, y: j * bl, l: bw, w: bl });
+            }
+        }
+        if (boxes.length > bestBoxes.length) bestBoxes = boxes;
+    }
+    
+    return createLayersResult(bestBoxes, nz, bh, PL, PW, PH, bl, bw);
 }
 
 function optimalLayerPack(PL, PW, PH, bl, bw, bh) {
