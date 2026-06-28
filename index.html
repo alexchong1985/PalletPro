@@ -23,26 +23,26 @@
             <div class="card">
                 <h2>Dimensions</h2>
                 <div class="form-group">
-                    <h3>Pallet (inches)</h3>
+                    <h3>Pallet (mm)</h3>
                     <div class="input-row">
-                        <label>Length: <input type="number" id="p-length" value="48"></label>
-                        <label>Width: <input type="number" id="p-width" value="40"></label>
-                        <label>Max Height: <input type="number" id="p-height" value="48"></label>
+                        <label>Length: <input type="number" id="p-length" value="1200"></label>
+                        <label>Width: <input type="number" id="p-width" value="800"></label>
+                        <label>Max Height: <input type="number" id="p-height" value="1200"></label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <h3>Box (inches)</h3>
+                    <h3>Box (mm)</h3>
                     <div class="input-row">
-                        <label>Length: <input type="number" id="b-length" value="12"></label>
-                        <label>Width: <input type="number" id="b-width" value="10"></label>
-                        <label>Height: <input type="number" id="b-height" value="8"></label>
+                        <label>Length: <input type="number" id="b-length" value="300"></label>
+                        <label>Width: <input type="number" id="b-width" value="250"></label>
+                        <label>Height: <input type="number" id="b-height" value="200"></label>
                     </div>
                 </div>
                 <div class="form-group">
                     <h3>Constraints</h3>
                     <div class="input-row">
-                        <label>Max Weight (lbs): <input type="number" id="p-max-weight" value="2500"></label>
-                        <label>Box Weight (lbs): <input type="number" id="b-weight" value="5"></label>
+                        <label>Max Weight (kg): <input type="number" id="p-max-weight" value="1000"></label>
+                        <label>Box Weight (kg): <input type="number" id="b-weight" value="5"></label>
                     </div>
                 </div>
                 <button id="calculate-btn">Calculate Packing</button>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="stat-card">
                     <span class="label">Estimated Weight</span>
-                    <span id="stat-weight" class="value">0 lbs</span>
+                    <span id="stat-weight" class="value">0 kg</span>
                 </div>
             </div>
 

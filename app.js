@@ -48,7 +48,7 @@ function displayResults(result) {
     document.getElementById('stat-total').textContent = result.count;
     document.getElementById('stat-utilization').textContent = (result.utilization * 100).toFixed(1) + '%';
     document.getElementById('stat-layout').textContent = `${result.layers.length} x ${result.countPerLayer}`;
-    document.getElementById('stat-weight').textContent = totalWeight.toLocaleString() + ' lbs';
+    document.getElementById('stat-weight').textContent = totalWeight.toLocaleString() + ' kg';
     document.getElementById('stat-weight-util').textContent = weightUtil.toFixed(1) + '%';
 
     drawResult(result);
