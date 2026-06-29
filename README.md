@@ -4,6 +4,7 @@ PalletPro is a free, fast, and completely client-side pallet loading calculator.
 
 ## Features
 
+- **Metric Units**: Uses mm for dimensions and kg for weights for precision and global compatibility.
 - **Fast & Lightweight**: Sub-second load times with pure HTML, CSS, and JavaScript.
 - **3D Visualization**: Interactive 3D view of the loaded pallet using Three.js.
 - **Optimal Packing Algorithm**: Tests multiple orientations and patterns (Grid, Brick) to find the best fit.
@@ -27,3 +28,4 @@ PalletPro is a free, fast, and completely client-side pallet loading calculator.
 ## Lead Generation
 
 This tool is provided for free by [Owner's Service]. If you need professional logistics help, check out our core services via the link in the footer.
+Deployment test

@@ -10,8 +10,8 @@ function initVisualization() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f0f0);
 
-    camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
-    camera.position.set(100, 100, 100);
+    camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+    camera.position.set(2000, 2000, 2000);
 
     renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('pallet-canvas'), antialias: true });
     renderer.setSize(width, height);
@@ -98,10 +98,10 @@ function updateDisplay() {
     }
 
     // Draw Pallet Base
-    const palletGeo = new THREE.BoxGeometry(pallet.l, 4, pallet.w);
+    const palletGeo = new THREE.BoxGeometry(pallet.l, 144, pallet.w);
     const palletMat = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
     const palletMesh = new THREE.Mesh(palletGeo, palletMat);
-    palletMesh.position.y = -2;
+    palletMesh.position.y = -72;
     palletGroup.add(palletMesh);
 
     // Draw Boxes
@@ -109,7 +109,7 @@ function updateDisplay() {
         if (currentLayer !== -1 && currentLayer !== lIdx) return;
 
         layer.forEach((b, bIdx) => {
-            const boxGeo = new THREE.BoxGeometry(b.l - 0.1, b.h - 0.1, b.w - 0.1);
+            const boxGeo = new THREE.BoxGeometry(b.l - 1, b.h - 1, b.w - 1);
             const boxMat = new THREE.MeshLambertMaterial({ 
                 color: (lIdx % 2 === 0) ? 0xdeaa87 : 0xd2b48c,
                 transparent: currentLayer === -1 && lIdx > 0,
