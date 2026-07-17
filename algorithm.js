@@ -1,4 +1,4 @@
-function calculatePacking(pallet, box) {
+function calculatePacking(pallet, box, lockHeight) {
     const orientations = [
         { l: box.l, w: box.w, h: box.h, weight: box.weight },
         { l: box.l, w: box.h, h: box.w, weight: box.weight },
@@ -12,6 +12,8 @@ function calculatePacking(pallet, box) {
 
     orientations.forEach(ori => {
         if (ori.h > pallet.h) return;
+        // When height is locked, only allow orientations where height equals original box height
+        if (lockHeight && ori.h !== box.h) return;
         
         const result = calculateForOrientation(pallet, ori);
         if (!bestResult || result.count > bestResult.count) {

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const result = calculatePacking(pallet, box);
+        const result = calculatePacking(pallet, box, document.getElementById('lock-height').checked);
         if (!result || result.count === 0) {
             alert('No boxes could fit with these dimensions and constraints.');
             return;
@@ -50,6 +50,23 @@ function displayResults(result) {
     document.getElementById('stat-layout').textContent = `${result.layers.length} x ${result.countPerLayer}`;
     document.getElementById('stat-weight').textContent = totalWeight.toLocaleString() + ' kg';
     document.getElementById('stat-weight-util').textContent = weightUtil.toFixed(1) + '%';
+
+    // Render layer details table
+    const tbody = document.getElementById('layer-table-body');
+    tbody.innerHTML = '';
+    result.layers.forEach((layer, idx) => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border)';
+        const boxInLayer = layer[0];
+        tr.innerHTML = `
+            <td style="padding: 0.75rem 0.5rem; font-weight: 600;">Layer ${idx + 1}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${layer.length}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${boxInLayer.l}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${boxInLayer.w}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${boxInLayer.h}</td>
+        `;
+        tbody.appendChild(tr);
+    });
 
     drawResult(result);
 }
