@@ -57,13 +57,24 @@ function displayResults(result) {
     result.layers.forEach((layer, idx) => {
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid var(--border)';
-        const boxInLayer = layer[0];
+        
+        // Compute layer footprint: overall L x W dimensions the boxes occupy on the pallet
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        layer.forEach(box => {
+            if (box.x < minX) minX = box.x;
+            if (box.y < minY) minY = box.y;
+            if (box.x + box.l > maxX) maxX = box.x + box.l;
+            if (box.y + box.w > maxY) maxY = box.y + box.w;
+        });
+        const layerL = Math.round((maxX - minX) * 10) / 10;
+        const layerW = Math.round((maxY - minY) * 10) / 10;
+        
         tr.innerHTML = `
             <td style="padding: 0.75rem 0.5rem; font-weight: 600;">Layer ${idx + 1}</td>
             <td style="padding: 0.75rem 0.5rem; text-align: center;">${layer.length}</td>
-            <td style="padding: 0.75rem 0.5rem; text-align: center;">${boxInLayer.l}</td>
-            <td style="padding: 0.75rem 0.5rem; text-align: center;">${boxInLayer.w}</td>
-            <td style="padding: 0.75rem 0.5rem; text-align: center;">${boxInLayer.h}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${layerL}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${layerW}</td>
+            <td style="padding: 0.75rem 0.5rem; text-align: center;">${layer[0].h}</td>
         `;
         tbody.appendChild(tr);
     });
