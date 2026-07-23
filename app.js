@@ -24,18 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const spinner = document.getElementById('viz-spinner');
-        spinner.classList.remove('hidden');
+        const overlay = document.getElementById('loading-overlay');
+        document.getElementById('loading-text').textContent = 'Crunching numbers...';
+        overlay.classList.remove('hidden');
 
         const result = calculatePacking(pallet, box, document.getElementById('lock-height').checked);
         
         if (!result || result.count === 0) {
-            spinner.classList.add('hidden');
+            overlay.classList.add('hidden');
             alert('No boxes could fit with these dimensions and constraints.');
             return;
         }
         displayResults(result);
-        spinner.classList.add('hidden');
+        overlay.classList.add('hidden');
     });
 
     // Run initial calculation
